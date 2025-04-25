@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login / Signup</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Style for the profile picture upload */
+      .profile-pic-upload {
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      .profile-pic-upload input[type="file"] {
+        display: none; /* Hide the default file input */
+      }
+
+      .profile-pic-upload label {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #66b2b2;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .profile-pic-upload label:hover {
+        background-color: #4d9c9c;
+      }
+
+      #profilePicturePreview {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-top: 10px;
+        border: 2px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button
+        id="themeToggleBtn"
+        class="theme-toggle"
+        onclick="toggleDarkMode()"
+      >
+        🌙 Toggle to Dark Mode
+      </button>
+
+      <h2>Welcome to Chat App</h2>
+      <input type="text" id="name" placeholder="Enter your name" />
+      <input type="email" id="email" placeholder="Enter email" />
+      <input type="password" id="password" placeholder="Enter password" />
+
+      <!-- Profile Picture Upload -->
+      <div class="profile-pic-upload">
+        <label for="profilePicture">Upload Profile Picture</label>
+        <input
+          type="file"
+          id="profilePicture"
+          accept="image/*"
+          onchange="previewProfilePicture(this)"
+        />
+        <img
+          id="profilePicturePreview"
+          src=""
+          alt="Profile Picture"
+          style="display: none"
+        />
+      </div>
+
+      <button onclick="signup()">Sign Up</button>
+      <br />
+      <button onclick="login()">Login</button>
+      <br />
+      <a href="#" onclick="forgotPassword()">Forgot Password?</a>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+      function previewProfilePicture(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            document.getElementById("profilePicturePreview").src = e.target.result;
+            document.getElementById("profilePicturePreview").style.display = "block";
+          };
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+    </script>
+  </body>
+</html>
